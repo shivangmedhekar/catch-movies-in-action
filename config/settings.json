@@ -1,0 +1,6 @@
+{
+  "mongoConfig": {
+    "serverUrl": "mongodb+srv://smedhekar:sm900@cma.tc34p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "database": "CMA"
+  }
+}

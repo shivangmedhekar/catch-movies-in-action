@@ -1,0 +1,27 @@
+{
+  "name": "cma-catch-movies-in-action",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivangmedhekar/CMA.git"
+  },
+  "author": "Shivang Medhekar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shivangmedhekar/CMA/issues"
+  },
+  "homepage": "https://github.com/shivangmedhekar/CMA#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-handlebars": "^6.0.2",
+    "handlebars": "^4.7.7",
+    "mongodb": "^4.2.2",
+    "nanoid": "^3.1.30",
+    "seedrandom": "^3.0.5"
+  }
+}

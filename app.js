@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config();
 const app = express();
 const configRoutes = require('./routes');
 app.use(express.json());
@@ -16,38 +17,3 @@ configRoutes(app);
 app.listen(3000, () => {
     console.log('Server: http://localhost:3000');
 });
-
-// const seed = require('./data/seed/movie');
-// const addMovie = seed.addMovie;
-// addMovie();
-
-// const seedrandom = require('seedrandom')
-// const { customRandom, urlAlphabet } = require('nanoid');
-// const rng = seedrandom("AAMC 34th Street 14");
-// const nanoid = customRandom(urlAlphabet, 7, size => {
-//     return (new Uint8Array(size)).map(() => 256 * rng())})
-// console.log(nanoid())
-
-// console.log(new Date())
-// const dt = new Date;
-// console.log(dt.toLocaleString('en-US', { timeZone: 'America/New_York' }))
-
-// const seed = require('./data/seed/theater');
-// const addTheater = seed.addTheater;
-// addTheater();
-
-// const seed = require('./data/seed/showtimes');
-// const createMovieShowTime = seed.createMovieShowTime;
-// createMovieShowTime("meJSzVD");
-
-// const seed = require('./data/seed/showtimes');
-// const addTheaterForMovie = seed.addTheaterForMovie;
-// addTheaterForMovie('meJSzVD', 'H5dsl-5');
-
-// const seed = require('./data/seed/showtimes');
-// const addScreens = seed.addScreens;
-// addScreens('meJSzVD', 'H5dsl-5', 1);
-
-const seed = require('./data/seed/showtimes');
-const addToSmallScreen = seed.addToSmallScreen;
-addToSmallScreen('meJSzVD', 'H5dsl-5', 1);

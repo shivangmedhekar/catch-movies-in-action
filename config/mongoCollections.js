@@ -19,5 +19,6 @@ const getCollectionFn = (collection) => {
 module.exports = {
     movies: getCollectionFn('movies'),
     theaters: getCollectionFn('theaters'),
-    showtimes: getCollectionFn("showtimes")
+    showtimes: getCollectionFn("showtimes"),
+    orders: getCollectionFn("orders")
 };

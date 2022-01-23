@@ -1,14 +1,18 @@
 const homeRoutes = require('./home');
 const movieRoutes = require('./movie');
-const theaterRoutes = require('./theater');
+const seatSelectionRoutes = require('./seatselection');
 const showtimesRoutes = require('./showtimes');
+const theaterRoutes = require('./theater');
+const checkoutRoutes = require('./checkout');
 
 const constructorMethod = (app) => {
 
     app.use('/', homeRoutes);
     app.use('/movie', movieRoutes);
     app.use('/showtimes', showtimesRoutes);
-    app.use('/seatselection', theaterRoutes);
+    app.use('/seatselection', seatSelectionRoutes);
+    app.use('/theater', theaterRoutes);
+    app.use('/order', checkoutRoutes);
 
     app.use('*', (req, res) => {
         res.sendStatus(404);

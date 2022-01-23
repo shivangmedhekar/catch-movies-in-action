@@ -1,5 +1,12 @@
 const MongoClient = require('mongodb').MongoClient;
-const settings = require('./settings');
+
+const settings = {
+    "mongoConfig": {
+        "serverUrl": process.env.ATLAS_SERVER_URL,
+        "database": process.env.ATLAS_DATABASE
+    }
+}
+
 const mongoConfig = settings.mongoConfig;
 
 let _connection = undefined;

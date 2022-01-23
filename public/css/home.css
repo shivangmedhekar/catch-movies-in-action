@@ -1,0 +1,37 @@
+.top-movies{
+    margin-top: 2%;
+    display: block;
+}
+
+.top-movie-card{
+    /* margin-left: 0.5%;
+    margin-right: 0.5%; */
+    width: 29rem;
+    border-radius: 7%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.card-img-top{
+    height: 17rem;
+    border-radius: 7%;
+}
+
+.card-img-nw {
+    width: 10rem;
+
+}
+.card-img-nw{
+    height: 17rem;
+
+}
+
+.card-body{
+    text-align: center;
+}
+
+.now-playing-card{
+    justify-content: center;
+    margin-left: 5%;
+    margin-right: 5%;
+}

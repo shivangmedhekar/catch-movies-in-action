@@ -1,8 +1,35 @@
 
+<head>
 
-<a href="/movie">Movie</a>
+    <title>CMA: Home</title>
+
+    <!--Owl Carousel 2-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="public/css/home.css">
+</head>
 
 
+<!--<div id="top-movies-showcase" class="container-fluid top-movies-showcase">-->
+
+<!--    <h3>TOP MOVIES</h3>-->
+
+<!--    <div class="owl-carousel top-movies-carousel">-->
+
+<!--    </div>-->
+<!--</div>-->
+
+<h2>Now Playing</h2>
 {{#each movies}}
-    <a href="/movie/{{this.movieId}}"><li>{{this.movieName}}</li></a>
+    <a href="/movie/{{this.slug}}"><li>{{this.movieName}}</li></a>
 {{/each}}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script src="public/js/owlcarousel/owl.carousel.min.js"></script>
+
+<script rel="script" src="public/js/home.js"></script>
+<script src="public/js/owlcarousel-config.js"></script>
+
+
+<script src="public/js/owlcarousel-config.js"></script>

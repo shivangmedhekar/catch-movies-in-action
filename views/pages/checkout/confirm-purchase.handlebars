@@ -1,0 +1,14 @@
+{{orderSummary.movieName}} <br>
+{{orderSummary.theaterName}}
+{{orderSummary.showtime}}
+{{orderSummary.noOfSeats}}
+{{orderSummary.seats}}
+{{orderSummary.price}}
+
+<button id="confirm-btn">Confirm</button>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script>
+    const orderSummary = JSON.parse('{{{orderSummary}}}');
+</script>
+<script src="/public/js/confirm-purchase.js"></script>

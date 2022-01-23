@@ -12,12 +12,12 @@ async function addMovie() {
     const seedrandom = require('seedrandom')
     const { customRandom, urlAlphabet } = require('nanoid');
     const rng = seedrandom(movieName);
-    const nanoid = customRandom(urlAlphabet, 7, size => {
+    const nanoid = customRandom(urlAlphabet, 10, size => {
         return (new Uint8Array(size)).map(() => 256 * rng())})
     const movieId = nanoid();
     const findResult = await movieCollection.findOne( {movieId: movieId});
 
-    if (findResult != null) throw "Error: Theater with same name exists";
+    if (findResult != null) throw "Error: Movie with same name exists";
 
     const newMovie = {
         movieId: movieId,

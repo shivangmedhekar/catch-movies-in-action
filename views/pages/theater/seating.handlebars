@@ -1,18 +1,22 @@
 <link rel="stylesheet" href="/public/css/seatselection.css"/>
 
-<h1 id="movieName"></h1>
-<h4 id="theaterName"></h4> <h4 id="showTime"></h4> <h4 id="format"></h4>
-
-<div class="containerSeat">
-
-    <div class="theatreContainer" id="theatreContainer">
-        <div class="screen"></div>
+<div class="container">
+    <h1 id="movieName" class="display-1"></h1>
+    <div class="movie-details">
+        <h4 id="theaterName"></h4> <h4 id="showTime"></h4> <h4 id="format"></h4>
     </div>
 
-    <button class="continueButton" style="color: #000000; background-color: #FFFFFF" id="continueButton">Continue</button>
+    <div class="containerSeat bg-light">
+
+        <div class="theatreContainer" id="theatreContainer">
+            <div class="screen"></div>
+        </div>
+
+        <button class="continueButton btn-primary" id="continueButton">Continue</button>
+
+    </div>
 
 </div>
-
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 

@@ -1,15 +1,19 @@
-<h1 id="movie-name"></h1>
+<head>
+    <link rel="stylesheet" href="/public/css/pages/showtimes/showtimes.css">
+</head>
 
-<div id="search-form">
+<div class="container">
+    <h1 id="movie-name" class="display-1"></h1>
 
-    <label for="calender"></label>
+    <div id="search-form" class="form-group" style="display: flex">
+        <label for="calender"></label>
+        <input type="date" class="form-control" id="calender" name="calender" >
+        <button class="btn btn-primary" id="searchBtn">Search</button>
+    </div>
+    <hr class="my-4">
+    <div id="show-list"></div>
 
-    <input type="date" id="calender" name="calender" >
-    <button id="searchBtn">Search</button>
 </div>
-
-<div id="show-list"></div>
-
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script>
     const slug = '{{slug}}';

@@ -1,11 +1,57 @@
-{{orderSummary.movieName}} <br>
-{{orderSummary.theaterName}}
-{{orderSummary.showtime}}
-{{orderSummary.noOfSeats}}
-{{orderSummary.seats}}
-{{orderSummary.price}}
+<head>
+    <link rel="stylesheet" href="/public/css/pages/checkout/confirm-purchase.css">
+</head>
 
-<button id="confirm-btn">Confirm</button>
+<div class="container">
+
+    <h1 class="heading display-2">Your Order Summary</h1>
+
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="movie-info col-6">
+
+            <div class="movie-info-sub" >
+                <h3>Movie Name:</h3>&nbsp;<h3 id="movie-name" ></h3>
+            </div>
+
+            <div class="movie-info-sub">
+                <h3>Date:</h3>&nbsp;<h3 id="show-date"></h3>
+            </div>
+
+            <div class="movie-info-sub">
+                <h3>Time:</h3>&nbsp;<h3 id="show-time"></h3>
+            </div>
+
+            <div class="movie-info-sub">
+                <h4>Theater:</h4>&nbsp;<h4 id="theater-name"></h4>
+            </div>
+
+            <div class="movie-info-sub">
+                <h4>Format:</h4>&nbsp;<h4 id="format"></h4>
+            </div>
+
+            <div class="movie-info-sub">
+                <h4>No of Seats:</h4>&nbsp;<h4 id="no-of-seats"></h4>
+            </div>
+<!--            <h4 id="audi">Auditorium</h4>-->
+            <div class="movie-info-sub">
+                <h4>Seats:</h4>&nbsp;<h4 id="seats"></h4>
+            </div>
+
+
+        </div>
+    </div>
+    <hr class="my-4">
+    <div class="movie-info-sub">
+        <h3>Total Cost: </h3>&nbsp;<h3 id="cost"></h3>
+    </div>
+
+
+
+    <button id="confirm-btn" class="btn-primary">Confirm</button>
+</div>
+
+
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script>

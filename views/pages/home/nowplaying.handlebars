@@ -1,0 +1,19 @@
+
+<head>
+    <title>Now Playing: CMA</title>
+    <link rel="stylesheet" href="/public/css/pages/home/nowplaying.css">
+</head>
+
+
+<div class="now-playing-heading">
+    <h2>Now Playing Movies</h2>
+</div>
+
+<section class="now-playing-list"></section>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    const nowPlaying = JSON.parse('{{{nowPlayingMovies}}}');
+</script>
+<script rel="script" src="/public/js/pages/home/nowplaying.js"></script>

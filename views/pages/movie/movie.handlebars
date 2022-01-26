@@ -1,7 +1,56 @@
-<h1>Details of movie</h1>
+<head>
+    <link rel="stylesheet" href="/public/css/pages/movie/movie.css">
+</head>
 
-<h2>{{movie.movieName}}</h2>
 
-<a href="{{movie.slug}}/showtimes/"><button>Book</button></a>
+<div class="container bg-light">
+    <div class="jumbotron ">
 
-<script src="/public/js/showtimes.js"></script>
+        <div class="row">
+
+            <div class="col-4">
+                <div class="movie-poster-box">
+                    <div class="movie-poster-box-img">
+                        <img id="movie-poster" src="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-8">
+                <h1 id="movie-name" class="display-4"></h1>
+
+                <div class="movie-tags">
+                    <h4><span id="movie-genre" class="badge bg-dark"></span></h4>
+                    <h4><span id="movie-mpaaRating" class="badge bg-dark"></span></h4>
+                    <h4><span id="movie-runtime" class="badge bg-dark"></span></h4>
+                </div>
+
+                <p id="movie-synopsis" class="lead"></p>
+                <hr class="my-4">
+                <p class="lead">
+                    <a id="book-btn-link" class="btn btn-primary btn-lg" role="button"></a>
+                    <h4><span id="movie-release-date" class="badge bg-danger"></span></h4>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<h4 id="earliest-booking-date"></h4>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    let movieInfo
+    try {
+        movieInfo = JSON.parse('{{{movie}}}');
+    }catch (e) {
+        location.href = "/";
+    }
+</script>
+<script src="/public/js/pages/movie/movie.js"></script>

@@ -4,32 +4,49 @@
     <title>CMA: Home</title>
 
     <!--Owl Carousel 2-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">-->
     <link rel="stylesheet" href="public/css/home.css">
+    <link rel="stylesheet" href="public/css/lightslider/lightslider.css">
 </head>
 
 
-<!--<div id="top-movies-showcase" class="container-fluid top-movies-showcase">-->
+<section id="latest-releases">
+    <h2 class="latest-releases-heading">Latest Releases</h2>
 
-<!--    <h3>TOP MOVIES</h3>-->
+    <ul id="latest-releases-list" class="cs-hidden"></ul>
+</section>
 
-<!--    <div class="owl-carousel top-movies-carousel">-->
 
-<!--    </div>-->
-<!--</div>-->
+<section id="now-playing">
+    <h2 class="now-playing-heading">Now Playing</h2>
 
-<h2>Now Playing</h2>
-{{#each movies}}
-    <a href="/movie/{{this.slug}}"><li>{{this.movieName}}</li></a>
-{{/each}}
+    <ul id="now-playing-list" class="cs-hidden"></ul>
+</section>
+
+<section id="upcoming-movies">
+    <h2 class="upcoming-movies-heading">Upcoming Movies</h2>
+
+    <ul id="upcoming-movies-list" class="cs-hidden"></ul>
+</section>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
+<script src="public/js/lightslider/lightslider.js"></script>
 <script src="public/js/owlcarousel/owl.carousel.min.js"></script>
+<script src="public/js/owlcarousel-config.js"></script>
 
+<script>
+    $(document).ready(function() {
+        $('#latest-releases-list, #now-playing-list, #upcoming-movies-list').lightSlider({
+            autoWidth:true,
+            loop:true,
+            onSliderLoad: function() {
+                $('#latest-releases-list, #now-playing-list, #upcoming-movies-list').removeClass('cS-hidden');
+            }
+        });
+    });
+    const latestReleases = JSON.parse('{{{ latestReleases }}}');
+    const nowPlaying = JSON.parse('{{{ nowPlayingMovies }}}');
+    const upcomingMovies = JSON.parse('{{{ upcomingMovies }}}');
+</script>
 <script rel="script" src="public/js/home.js"></script>
-<script src="public/js/owlcarousel-config.js"></script>
-
-
-<script src="public/js/owlcarousel-config.js"></script>

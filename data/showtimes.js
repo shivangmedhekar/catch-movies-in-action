@@ -37,8 +37,10 @@ async function getShowsDetails(showtimeId){
     const showtimes = await showtimesCollection();
 
     const findResult = await showtimes.findOne({showtimeId: showtimeId});
-    if (findResult)
+    if (findResult) {
+        findResult.movieName = findResult.movieName.replace("'", "/quote");
         return findResult
+    }
 
     const url = `https://api.amctheatres.com/v2/showtimes/${showtimeId}`;
     const { data } = await axios.get(url, {
@@ -74,7 +76,7 @@ async function getShowsDetails(showtimeId){
     }
 
     const insertResult = await showtimes.insertOne(showtimeObj);
-
+    showtimeObj.movieName = showtimeObj.movieName.replace("'", '/quote');
     return showtimeObj
 }
 

@@ -39,7 +39,7 @@
             url: '/movie/getMovieBySlug/' + slug
         });
         console.log(result.movie.movieName)
-        $("#movie-name").html(result.movie.movieName);
+        $("#movie-name").html(result.movie.movieName.replace('/quote', "'"));
     }
 
     async function getTheaters() {
@@ -55,8 +55,8 @@
         let theaters = await getTheaters();
 
         for (let theater of theaters){
-            let theaterDiv = `<div id="${theater.slug}">`
-            let theaterName = `<h3>${theater.name}</h3>`
+            let theaterDiv = `<div id="${theater.slug}" class="theater">`
+            let theaterName = `<h2 class="theater-name display-5">${theater.name}</h2>`
             console.log(theater.name)
             const result = await $.ajax({
                 method: 'POST',
@@ -92,23 +92,26 @@
                     let flag = false
                     if (showsByFormat[format].length > 0) flag = true
 
-                    if (format == 0 && flag) formatHeading = 'Digital';
-                    else if (format == 1 && flag) formatHeading = 'IMAX';
-                    else if (format == 2 && flag) formatHeading = 'Dolby';
-                    else if (format == 3 && flag)formatHeading = 'Prime';
+                    if (format == 0 && flag) formatHeading = '<h3 class="show-format">Digital</h3>';
+                    else if (format == 1 && flag) formatHeading = '<h3 class="show-format">IMAX WITH LASER AT AMC</h3>';
+                    else if (format == 2 && flag) formatHeading = '<h3 class="show-format">DOLBY CINEMA</h3>';
+                    else if (format == 3 && flag)formatHeading = '<h3 class="show-format">Prime</h3>';
 
-                    let showList = '<li>';
+                    let showList = '<div class="show-timings">';
                     for (let show of showsByFormat[format]){
 
                         let showtime = new Date(show.showtime);
-                        if (showtime - todaysDate < 0)
-                            showList += `<ul>${showtime.toLocaleTimeString()}</ul>`
+                        const showtimeFormated = showtime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+                        if (showtime - todaysDate < 0) {
+
+                            showList += `<h4><span class="badge bg-secondary timings">${showtimeFormated}</span></h4>`
+                        }
                         else
-                            showList += `<ul> <a href="${show.id}/"> ${showtime.toLocaleTimeString()}</a></ul>`
+                            showList += `<h4><a href="${show.id}/"><span class="badge bg-primary timings">${showtimeFormated}</span></a></h4>`
                     }
-                    showList += '</li>'
+                    showList += '</div>'
                     if (flag)
-                        formatDiv += formatHeading + showList
+                        formatDiv += `<div class="shows bg-light">${formatHeading} ${showList}</div>`
                 }
                 conditionalDiv = theaterName + formatDiv
             }

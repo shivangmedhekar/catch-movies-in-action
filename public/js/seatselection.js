@@ -1,6 +1,6 @@
 
 (function ($){
-
+    showDetails.movieName = showDetails.movieName.replace('/quote', "'");
     console.log(showDetails)
     if (showDetails.format.length === 0)
         showDetails.format = 'Digital';
@@ -112,6 +112,7 @@
             showtimeId: showDetails.showtimeId,
             noOfSeats: seatList.length,
             seats: seatList,
+            format: showDetails.format,
             price: showDetails.ticketPrices
         }
 

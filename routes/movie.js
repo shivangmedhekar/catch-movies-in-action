@@ -1,27 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const data = require('../data/movies');
+
+const movieData = require('../data/movies');
 const showtimeData = require('../data/showtimes')
 
-router.get('/:movieId', async (req, res) => {
+router.get('/:slug', async (req, res) => {
 
-    //Error handling of movieId, string, size=10
     try {
         /*------------ Error Handling Start ------------*/
-        if (Object.keys(req.params).length === 0) throw "Error: movieId not passed";
+        if (Object.keys(req.params).length === 0) throw "Error: slug not passed";
 
-        const movieId = req.params.movieId;
+        const slug = req.params.slug;
 
-        if (typeof movieId !== 'string') throw 'Error: movieId not of type string';
+        if (typeof slug !== 'string') throw 'Error: slug not of type string';
         /*------------ Error Handling End ------------*/
 
-        const movie = await data.getMovieBySlug(movieId);
-        if (movie === null) throw 'Error: movie not found';
+        const movie = await movieData.getMovieBySlug(slug);
+        if (!movie) throw 'Error: movie not found';
 
-        res.render('pages/movie/movie', {movie: movie});
+        res.status(200).render('pages/movie/movie', {movie: JSON.stringify(movie) });
     }
-    catch (e){
 
+    catch (e){
+        console.log(e);
+        if (e === "Error: slug not passed" || e === "Error: slug not of type string")
+            res.status(400).render('pages/error/error', {'error': 'Error 400: Bad Request'});
+
+        else res.status(404).render('pages/error/error', {'error': 'Error 404: Not Found'});
     }
 });
 
@@ -37,19 +42,19 @@ router.get('/:slug/showtimes/:showtimeId', async (req, res) => {
 
 router.get('/getMovieBySlug/:slug', async (req, res) => {
 
-    const movie = await data.getMovieBySlug(req.params.slug);
+    const movie = await movieData.getMovieBySlug(req.params.slug);
     res.json({movie: movie});
 });
 
-router.get('/getTopMovies/ajaxCall', async (req, res) => {
-
-    const movies = await data.getTopMovies();
-    res.json({movies: movies});
-});
+// router.get('/getTopMovies/ajaxCall', async (req, res) => {
+//
+//     const movies = await movieData.getTopMovies();
+//     res.json({movies: movies});
+// });
 
 router.get('/getMovieBySlug/ajaxCall', async (req, res) => {
 
-    const movies = await data.getTopMovies();
+    const movies = await movieData.getTopMovies();
     res.json({movies: movies});
 });
 

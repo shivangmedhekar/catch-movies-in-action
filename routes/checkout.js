@@ -7,7 +7,7 @@ router.post('/confirm-purchase', async (req, res) => {
 
     try {
         const orderSummary = JSON.parse(req.body['Purchase Summary']);
-
+        orderSummary.movieName = orderSummary.movieName.replace("'", '/quote');
         res.render('pages/checkout/confirm-purchase', {orderSummary: JSON.stringify(orderSummary)})
     }
     catch (e){

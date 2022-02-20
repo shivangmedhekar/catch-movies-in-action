@@ -1,10 +1,13 @@
 (function ($) {
     for (let movie of upcomingMovies){
+
+        if (movie.poster.includes('null')) movie.poster = 'public/assets/noimg.jpg';
+
         $('.now-playing-list').append(
             `<a href="/movie/${movie.slug}">
                     <div class="movies-box">
                         <div class="movies-img">
-                            <img src="https://image.tmdb.org/t/p/original/${movie.poster}">
+                            <img src="${movie.poster}">
                         </div>
         
                         <div class="now-playing-box-text">

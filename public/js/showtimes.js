@@ -1,16 +1,49 @@
 (function($) {
 
-    displayMovieName();
-
-    // Set today's date on calender
     const todaysDate = new Date();
-    // Today's date set in Input type Date for value and minimum selection
-    document.getElementById("calender").value = `${todaysDate.getFullYear()}-0${todaysDate.getMonth() + 1}-${todaysDate.getDate()}`;
-    document.getElementById("calender").min = `${todaysDate.getFullYear()}-0${todaysDate.getMonth() + 1}-${todaysDate.getDate()}`;
+    async function main(){
+        const movieDetails = await getMovieDetails();
+        let movieReleaseDate = new Date(movieDetails.releaseDate);;
 
-    // Search for shows on page
-    const todaysDateFormated = dateFormatingForSearch(todaysDate);
-    getShows(todaysDateFormated);
+
+        let calenderDate;
+        if (movieReleaseDate - todaysDate < 0) calenderDate = todaysDate;
+        else calenderDate = movieReleaseDate;
+        // Today's date set in Input type Date for value and minimum selection
+        document.getElementById("calender").value = calenderFormatDate(calenderDate);
+        document.getElementById("calender").min = calenderFormatDate(calenderDate);
+
+        const dateForSearch = dateFormatingForSearch(calenderDate);
+        getShows(dateForSearch);
+    }
+
+    main();
+
+    function calenderFormatDate(date){
+        console.log(date.getMonth())
+        let dateString, year, month, day;
+
+        year = date.getFullYear();
+
+        if (date.getMonth() + 1 < 9) month = `0${date.getMonth() + 1}`;
+        else month = date.getMonth() + 1;
+
+        if (date.getDate() < 9) day = `0${date.getDate()}`;
+        else day = date.getDate();
+
+        return `${year}-${month}-${day}`;
+    }
+
+    async function getMovieDetails(){
+        const result = await $.ajax({
+            method: 'GET',
+            url: '/movie/getMovieBySlug/' + slug
+        });
+        console.log(result)
+        // movieReleaseDate = new Date(result.releaseDate);
+        $("#movie-name").html(result.movie.movieName.replace('/quote', "'"));
+        return result.movie
+    }
 
     // Search for shows by selection of date and click on search button
     searchByDate();
@@ -32,16 +65,7 @@
             getShows(searchDate);
         })
     }
-
-    async function displayMovieName(){
-        const result = await $.ajax({
-            method: 'GET',
-            url: '/movie/getMovieBySlug/' + slug
-        });
-        console.log(result.movie.movieName)
-        $("#movie-name").html(result.movie.movieName.replace('/quote', "'"));
-    }
-
+    
     async function getTheaters() {
 
         const result = await $.ajax({
@@ -50,14 +74,15 @@
         });
         return result.theaters
     }
-    getShows();
+
     async function getShows(searchDate){
         let theaters = await getTheaters();
-
+        $('.loader-showtimes').show();
+        $('#show-list').hide();
         for (let theater of theaters){
             let theaterDiv = `<div id="${theater.slug}" class="theater">`
             let theaterName = `<h2 class="theater-name display-5">${theater.name}</h2>`
-            console.log(theater.name)
+
             const result = await $.ajax({
                 method: 'POST',
                 url: `/showtimes/getshows/${theater.id}/${slug}/${searchDate}` ,
@@ -118,6 +143,8 @@
             let divToAppend = theaterDiv + conditionalDiv + '</div>'
             $('#show-list').append(divToAppend);
         }
+        $('.loader-showtimes').hide();
+        $('#show-list').show();
     }
 
     async function displayTheaterName(theaterId){
@@ -130,37 +157,8 @@
         $("#show-list").append('<h2>' + result.theaterName +'</h2>');
     }
 
-    async function getShowsForMovie() {
 
-        const result = await $.ajax({
-            method: 'POST',
-            url: 'getshows/' + movieId,
-        });
-        return result;
-    }
 
-    async function displayShows() {
-        const showList = await getShowsForMovie();
 
-        let theaterId, screenNo;
-        for (let theater of showList.theaters){
-
-            theaterId = theater.theaterId;
-            await displayTheaterName(theaterId);
-
-            for (let screen of theater.screens){
-                screenNo = screen.screenNo;
-                $("#show-list").append('<h2> Screen No ' + screenNo +'</h2>');
-                console.log(screenNo);
-                for (let show of screen.shows){
-                    const showtime = new Date(show.showTime).getTime();
-
-                    let url = `/seatselection/${movieId}/${theaterId}/${screenNo}/${showtime}`;
-                    const showTimeString = new Date(show.showTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                    $("#show-list").append('<li><a href='+url + ' >' + showTimeString + '</a></li>');
-                }
-            }
-        }
-    }
 
 })(window.jQuery);

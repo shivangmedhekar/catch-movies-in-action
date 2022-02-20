@@ -20,5 +20,6 @@ module.exports = {
     movies: getCollectionFn('movies'),
     theaters: getCollectionFn('theaters'),
     showtimes: getCollectionFn("showtimes"),
-    orders: getCollectionFn("orders")
+    orders: getCollectionFn("orders"),
+    users: getCollectionFn("users")
 };

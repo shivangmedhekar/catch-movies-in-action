@@ -1,0 +1,40 @@
+.movie-poster-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
+    margin: 20px 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 175px;
+    background-color: white;
+}
+.movie-poster-box-img{
+    width: 100%;
+    height: 270px;
+
+}
+
+.movie-poster-box-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.movie-box{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 900px;
+}
+
+.movie-details-box{
+    padding: 20px;
+}
+
+.movie-box-inside{
+    display: flex;
+    padding: 10px;
+}

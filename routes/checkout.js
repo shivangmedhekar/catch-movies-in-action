@@ -19,11 +19,11 @@ router.post('/checkout', async (req, res) => {
 
     //Error handling of movieId, string, size=10
     try {
-        const showtime = await data.checkout(JSON.parse(req.body['orderSummary']));
-        res.json(req.body)
+        const showtime = await data.checkout(JSON.parse(req.body['orderSummary']), req.session.user);
+        res.redirect('/profile')
     }
     catch (e){
-
+        console.log(e)
     }
 });
 

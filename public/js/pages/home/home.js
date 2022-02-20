@@ -57,7 +57,6 @@
             </a>`)
     }
 
-
     $('#latest-releases-list').show();
     $('#now-playing-list').show();
     $('#upcoming-movies-list').show();
@@ -72,5 +71,4 @@ $(document).ready(function() {
             $('#latest-releases-list, #now-playing-list, #upcoming-movies-list').removeClass('cS-hidden');
         }
     });
-
 });

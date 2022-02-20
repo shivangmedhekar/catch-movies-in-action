@@ -12,30 +12,41 @@
     $('#cost').html(`$${orderSummary.seats.length * orderSummary.price[0].price}`)
     // $('#audi').html(`Movie: ${orderSummary.audit}`);
 
+    getMovieInfo();
 
     let movieInfo;
     async function getMovieInfo(){
-        const result = await $.ajax({
-            method: 'GET',
-            url: '/movie/getMovieBySlug/' + slug
-        });
-        console.log(result.movie.movieName)
+        try{
+            const result = await $.ajax({
+                method: 'POST',
+                url: '/movie/' + orderSummary.movieId
+            });
+            console.log(result)
+            $('#movie-poster').attr("src", `${result.poster}`);
+        }catch (e) {
+            console.log(e)
+        }
     }
     confirmButton.addEventListener('click', e => {
 
+        if (!sessionStorage.getItem('authenticated')){
+            $('#exampleModal').modal('toggle');
+        }
 
-        const form = document.createElement("form");
-        const purchaseSummary = document.createElement("input");
-        form.method = "POST";
-        form.action = "/order/checkout";
-        orderSummary.totalcost = orderSummary.seats.length * orderSummary.price[0].price;
-        purchaseSummary.value = JSON.stringify(orderSummary);
-        purchaseSummary.type = 'hidden'
-        purchaseSummary.name = "orderSummary";
-        form.appendChild(purchaseSummary);
+        else{
+            const form = document.createElement("form");
+            const purchaseSummary = document.createElement("input");
+            form.method = "POST";
+            form.action = "/order/checkout";
+            orderSummary.totalcost = orderSummary.seats.length * orderSummary.price[0].price;
+            purchaseSummary.value = JSON.stringify(orderSummary);
+            purchaseSummary.type = 'hidden'
+            purchaseSummary.name = "orderSummary";
+            form.appendChild(purchaseSummary);
 
-        document.body.appendChild(form);
+            document.body.appendChild(form);
 
-        form.submit();
+            form.submit();
+        }
     })
 })(window.jQuery);

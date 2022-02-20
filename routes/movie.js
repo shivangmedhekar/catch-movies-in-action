@@ -30,6 +30,18 @@ router.get('/:slug', async (req, res) => {
     }
 });
 
+router.post('/:movieId', async (req, res) => {
+
+    try{
+
+        const movie = await movieData.getMovieById(req.params.movieId);
+        res.json(movie);
+        
+    }catch (e) {
+        
+    }
+});
+
 router.get('/:slug/showtimes', async (req, res) => {
 
     res.render('pages/showtimes/showtimes', { slug: req.params.slug });

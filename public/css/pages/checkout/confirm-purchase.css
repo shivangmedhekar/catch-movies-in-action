@@ -1,4 +1,47 @@
 .movie-info-sub{
     display: flex;
 }
+.movie-info{
+    margin-top: 20px;
+    padding: 30px;
+    height: 470px;
+}
+#confirm-btn{
+    margin-top: 40px;
+    width: 100%;
+}
 
+.order-summary{
+    margin-top: 50px;
+}
+
+.movie-poster-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
+    margin: 20px 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 375px;
+    background-color: white;
+}
+.movie-poster-box-img{
+    width: 100%;
+    height: 570px;
+
+}
+
+.movie-poster-box-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.heading{
+    margin-top: 30px;
+    text-align: center;
+}

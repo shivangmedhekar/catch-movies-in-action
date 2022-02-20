@@ -13,12 +13,12 @@
     if(movieInfo.runTime)
         $('#movie-runtime').html(`${movieInfo.runTime} MINS`);
 
-    $('#movie-poster').attr("src", `https://image.tmdb.org/t/p/original/${movieInfo.poster}`);
+    $('#movie-poster').attr("src", `${movieInfo.poster}`);
     $('#movie-backdrop').attr("src", `https://image.tmdb.org/t/p/original/${movieInfo.backdrop}`);
     const todaysDate = new Date();
     const releaseDate = new Date(movieInfo.releaseDate);
 
-    if (todaysDate - releaseDate >= 0){
+    if (movieInfo.hasScheduledShowtimes){
 
         $('#book-btn-link').attr('href', `${movieInfo.slug}/showtimes/`);
         $('#book-btn-link').html('Tickets Available');

@@ -1,45 +1,8 @@
-.top-movies{
-    margin-top: 2%;
-    display: block;
-}
-
-.top-movie-card{
-    /* margin-left: 0.5%;
-    margin-right: 0.5%; */
-    width: 29rem;
-    border-radius: 7%;
-    margin-left: 2%;
-    margin-right: 2%;
-}
-
-.card-img-top{
-    height: 17rem;
-    border-radius: 7%;
-}
-
-.card-img-nw {
-    width: 10rem;
-
-}
-.card-img-nw{
-    height: 17rem;
-
-}
-
-.card-body{
-    text-align: center;
-}
-
-.now-playing-card{
-    justify-content: center;
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
 #main {
     padding-top: 80px;
     background: white;
 }
+
 
 .latest-releases-showcase{
     width: 430px;
@@ -56,6 +19,8 @@
     object-fit: cover;
     object-position: top;
 }
+
+
 
 .latest-releases-heading{
     padding-left: 30px;
@@ -74,8 +39,13 @@
     border-top: 1px solid rgba(53, 53, 53, 0.1);
 }
 
-.now-playing-heading, .upcoming-movies-heading {
+.now-playing-heading-div, .upcoming-movies-heading-div{
     margin: 30px 30px 0px 30px;
+    display: flex;
+}
+
+.now-playing-heading, .upcoming-movies-heading {
+    margin-right: 10px;
     font-weight: 500;
     letter-spacing: 1px;
     text-transform: uppercase;

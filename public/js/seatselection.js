@@ -1,5 +1,6 @@
 
 (function ($){
+    $(document).attr("title", `${showDetails.movieName}: CMA`);
     showDetails.movieName = showDetails.movieName.replace('/quote', "'");
     console.log(showDetails)
     if (showDetails.format.length === 0)

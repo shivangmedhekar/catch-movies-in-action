@@ -1,0 +1,23 @@
+
+<div class="container">
+    <h1 id="user-greet" class="display-1">Hi {{user.firstName}} !</h1>
+</div>
+
+<h3>Orders</h3>
+<div class="container" id="order-history">
+    <h3>Upcoming Events</h3>
+    <div id="upcoming-orders">
+
+    </div>
+
+    <h3>Past Events</h3>
+    <div id="past-orders">
+
+    </div>
+</div>
+
+<script>
+    const orderHistory = JSON.parse('{{{orderHistory}}}');
+</script>
+
+<script src="/public/js/pages/user/profile.js"></script>

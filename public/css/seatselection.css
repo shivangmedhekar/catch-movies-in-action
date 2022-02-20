@@ -20,7 +20,7 @@
 }
 
 .seat {
-    background-color: #428bca;
+    background-color: #0275d8;
     /*height: 26px;*/
     width: 40px;
     margin: 4px;
@@ -43,6 +43,12 @@
 }
 
 .theatreContainer {
+    padding-top: 35px;
+    padding-bottom: 50px;
+
+}
+
+.container-theater{
 
 }
 
@@ -64,13 +70,13 @@
 }
 
 .seat.selected {
-    background-color: #6feaf6;
+    background-color: #f0ad4e;
     color: black;
 }
 
 .seat.occupied {
-    background-color: white;
-    color: black;
+    background-color: #d9534f;
+    color: white;
 }
 
 
@@ -112,6 +118,7 @@
 
 .continueButton {
     margin-bottom: 50px;
+    width: 100%;
 }
 
 

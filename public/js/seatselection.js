@@ -4,7 +4,7 @@
     console.log(showDetails)
     if (showDetails.format.length === 0)
         showDetails.format = 'Digital';
-    let layout, theaterName;
+    let layout, theaterName, seatList;
     let seats = showDetails.availability;
 
     printLayout();

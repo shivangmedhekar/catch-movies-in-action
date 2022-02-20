@@ -3,7 +3,8 @@
     const todaysDate = new Date();
     async function main(){
         const movieDetails = await getMovieDetails();
-        let movieReleaseDate = new Date(movieDetails.releaseDate);;
+        let movieReleaseDate = new Date(movieDetails.releaseDate);
+
 
 
         let calenderDate;
@@ -65,7 +66,7 @@
             getShows(searchDate);
         })
     }
-    
+
     async function getTheaters() {
 
         const result = await $.ajax({

@@ -3,25 +3,28 @@
 <div class="container">
     <h1 id="movieName" class="display-1"></h1>
     <div class="movie-details">
-        <h4 id="theaterName"></h4> <h4 id="showTime"></h4> <h4 id="format"></h4>
+        <h4><span id="theaterName" class="badge bg-dark"></span></h4>
+        <h4><span id="showTime" class="badge bg-dark"></span></h4>
+        <h4><span id="format" class="badge bg-dark"></span></h4>
     </div>
 
     <div class="containerSeat bg-light">
 
-        <div class="theatreContainer" id="theatreContainer">
-            <div class="screen"></div>
+        <div id="container-theater">
+            <div class="theatreContainer" id="theatreContainer">
+                <div class="screen"></div>
+            </div>
+            <button class="continueButton btn btn-primary" id="continueButton">CONTINUE</button>
         </div>
 
-        <button class="continueButton btn-primary" id="continueButton">Continue</button>
 
     </div>
 
 </div>
 
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
 <script>
     const showDetails = JSON.parse('{{{showDetails}}}');
 </script>
 
-<script src="../../../../public/js/seatselection.js"></script>
+<script src="/public/js/seatselection.js"></script>

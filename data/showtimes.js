@@ -2,6 +2,19 @@ const mongoCollections = require('./../config/mongoCollections');
 const axios = require("axios");
 const showtimesCollection = mongoCollections.showtimes;
 
+async function clearOldShowtime(){
+    const showtimes = await showtimesCollection();
+    const findResult = await showtimes.find().toArray();
+
+    const today = new Date();
+    for (let show of findResult){
+        if (show.showtime - today < 0) {
+            const deleteQuery = showtimes.deleteOne({_id: show._id});
+        }
+    }
+
+}
+
 async function getShowsOfMovie(theaterId, slug, searchDate){
 
     // const showtimes = await showtimesCollection();
@@ -113,5 +126,5 @@ function setAudiAvailability(format){
 }
 
 module.exports = {
-    getShowsOfMovie, getShowsDetails
+    getShowsOfMovie, getShowsDetails, clearOldShowtime
 }

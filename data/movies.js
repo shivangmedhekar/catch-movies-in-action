@@ -7,6 +7,7 @@ const X_AMC_VENDOR_KEY = process.env.X_AMC_VENDOR_KEY
 const tmdbAPIkey = process.env.TMDB_API_KEY;
 const omdbAPIkey = process.env.OMDB_API_KEY;
 const imdbId = require('imdb-id');
+const {theaters} = require("../config/mongoCollections");
 
 async function getAllMovies(){
 
@@ -40,8 +41,7 @@ async function getMovieById(movieId){
 
     const movieCollection = await movies();
 
-    let movie = await movieCollection.findOne({ movieId: movieId}, {projection:  { _id: 0, movieId: 1, movieName: 1 }});
-
+    let movie = await movieCollection.findOne({ amcId: parseInt(movieId)}, {projection:  { _id: 0 }});
     //error handling
     return movie;
 }
@@ -56,7 +56,7 @@ async function getMovieNameById(movieId) {
 
     const movieCollection = await movies();
 
-    const findResult = await movieCollection.findOne({ movieId: movieId}, {projection:  { _id: 0, movieName: 1 }});
+    const findResult = await movieCollection.findOne({ amcId: movieId}, {projection:  { _id: 0, movieName: 1 }});
     const movieName = findResult.movieName;
     return movieName;
 }
@@ -96,107 +96,28 @@ async function getMovieBySlug(slug){
     return movie;
 }
 
-async function getUpcomingMovies(pageSize){
+async function getMovies(pageSize, view, latestMovies){
 
     /*------------ Error Handling Start ------------*/
 
     if (arguments.length < 1) throw 'Error: less arguments passed';
     if (!pageSize) throw 'Error: pageSize not passed';
+    if (!view) throw 'Error: View not passed';
     if (typeof pageSize != 'number') throw 'Error: pageSize not of type number';
 
     /*------------ Error Handling End ------------*/
 
-    const url = `https://api.amctheatres.com/v2/movies/views/coming-soon?page-size=${pageSize}`;
+    /*------------ AMC Developers API ------------*/
+    const url = `https://api.amctheatres.com/v2/movies/views/${view}?page-size=${pageSize}`;
     const { data } = await axios.get(url, {
         headers: {
             'X-AMC-Vendor-Key': X_AMC_VENDOR_KEY
         }
     });
 
-    // Error Handling
     if (data.errors) throw "Error: AMC Server not responding";
-
     const amcNowPlayingMovies = data._embedded.movies;
-
-    const movieCollection = await movies();
-    const moviesData = await movieCollection.find({}).project({_id:0}).toArray();
-
-    let moviesHashTableDb = {};
-    for (let movie of moviesData){
-        moviesHashTableDb[movie.amcId] = movie
-    }
-    let backdrop, poster;
-    let upcomingMovies = [];
-    for (let movie of amcNowPlayingMovies){
-
-        if (moviesHashTableDb[movie.id]) upcomingMovies.push(moviesHashTableDb[movie.id]);
-
-        else {
-            try{
-                if (!movie.imdbId) movie.imdbId = await imdbId(movie.name);
-
-                const url = `https://api.themoviedb.org/3/find/${movie.imdbId}?api_key=${tmdbAPIkey}&external_source=imdb_id`;
-                const { data } = await axios.get(url);
-
-
-                if (data['movie_results'].length){
-                    backdrop = data['movie_results'][0].backdrop_path;
-                    poster = data['movie_results'][0].poster_path;
-                }
-
-            }catch (e) {
-                continue;
-            }
-
-
-
-            const insertQuery = await movieCollection.insertOne({
-                amcId: movie.id,
-                imdbId: movie.imdbId,
-                movieName: movie.name,
-                slug: movie.slug,
-                releaseDate: new Date(movie.releaseDateUtc),
-                backdrop: backdrop,
-                poster: poster,
-            });
-
-            const InsertedMovie = await movieCollection.findOne({ amcId: movie.id }, {_id:0});
-            InsertedMovie.genre = movie.genre;
-            InsertedMovie.mpaaRating = movie.mpaaRating;
-            InsertedMovie.runTime = movie.runTime;
-
-            upcomingMovies.push(InsertedMovie);
-        }
-    }
-
-    for (let movie of upcomingMovies){
-        movie.movieName = movie.movieName.replace("'", '/qoute');
-    }
-    return upcomingMovies;
-}
-
-
-async function getNowPlayingMovies(pageSize){
-
-    /*------------ Error Handling Start ------------*/
-
-    if (arguments.length < 1) throw 'Error: less arguments passed';
-    if (!pageSize) throw 'Error: pageSize not passed';
-    if (typeof pageSize != 'number') throw 'Error: pageSize not of type number';
-
-    /*------------ Error Handling End ------------*/
-
-    const url = `https://api.amctheatres.com/v2/movies/views/now-playing?page-size=${pageSize}`;
-    const { data } = await axios.get(url, {
-        headers: {
-            'X-AMC-Vendor-Key': X_AMC_VENDOR_KEY
-        }
-    });
-
-    // Error Handling
-    if (data.errors) throw "Error: AMC Server not responding";
-
-    const amcNowPlayingMovies = data._embedded.movies;
+    /*------------ AMC Developers API ------------*/
 
     const movieCollection = await movies();
     const moviesData = await movieCollection.find({}).project({_id:0}).toArray();
@@ -206,30 +127,40 @@ async function getNowPlayingMovies(pageSize){
         moviesHashTableDb[movie.amcId] = movie
     }
 
-    let nowPlayingMovies = [];
+    let moviesList = [];
+
     for (let movie of amcNowPlayingMovies){
-        let backdrop, poster
+
+        let backdrop, poster;
+
         if (moviesHashTableDb[movie.id]) {
 
-            moviesHashTableDb[movie.id].genre = movie.genre;
-            moviesHashTableDb[movie.id].mpaaRating = movie.mpaaRating;
-            moviesHashTableDb[movie.id].runTime = movie.runTime;
-            nowPlayingMovies.push(moviesHashTableDb[movie.id]);
+            if (movie.genre) {
+                const movieGenre = movie.genre[0] + movie.genre.slice(1, movie.genre.length).toLowerCase();
+                moviesHashTableDb[movie.id].genre = movieGenre;
+            }
+            if (movie.mpaaRating) moviesHashTableDb[movie.id].mpaaRating = movie.mpaaRating;
+            if (movie.runTime) moviesHashTableDb[movie.id].runTime = movie.runTime;
+
+            moviesList.push(moviesHashTableDb[movie.id]);
         }
 
         else {
             try{
                 if (!movie.imdbId) movie.imdbId = await imdbId(movie.name);
+
                 const url = `https://api.themoviedb.org/3/find/${movie.imdbId}?api_key=${tmdbAPIkey}&external_source=imdb_id`;
                 const { data } = await axios.get(url);
 
-
                 if (data['movie_results'].length){
-                    poster = data['movie_results'][0].poster_path;
-                    backdrop = data['movie_results'][0].backdrop_path;
+                    backdrop = `https://image.tmdb.org/t/p/original${data['movie_results'][0].backdrop_path}`;
+                    poster = `https://image.tmdb.org/t/p/original${data['movie_results'][0].poster_path}`;
                 }
-            }
-            catch ( e ){ continue; }
+
+            }catch (e) { continue; }
+
+            if(!poster) poster = movie.media.posterDynamic;
+            if (!backdrop) backdrop = movie.media.heroDesktopDynamic;
 
             const insertQuery = await movieCollection.insertOne({
                 amcId: movie.id,
@@ -243,68 +174,34 @@ async function getNowPlayingMovies(pageSize){
 
             const InsertedMovie = await movieCollection.findOne({ amcId: movie.id }, {_id:0});
 
-            InsertedMovie.genre = movie.genre;
-            InsertedMovie.mpaaRating = movie.mpaaRating;
-            InsertedMovie.runTime = movie.runTime;
+            if (InsertedMovie) {
+                if (movie.genre) InsertedMovie.genre = movie.genre;
+                if (movie.mpaaRating) InsertedMovie.mpaaRating = movie.mpaaRating;
+                if (movie.runTime) InsertedMovie.runTime = movie.runTime;
 
-            nowPlayingMovies.push(InsertedMovie);
-        }
-
-    }
-
-
-    for (let movie of nowPlayingMovies){
-        movie.movieName = movie.movieName.replace("'", '/qoute');
-    }
-
-    const latestReleases = nowPlayingMovies.sort(function(a,b){
-        return new Date(b.releaseDate) - new Date(a.releaseDate);
-    }).slice(0, 5);
-
-    return [nowPlayingMovies, latestReleases];
-}
-
-async function updateMoviesDB(moviesList) {
-
-    const movieCollection = await movies();
-
-    const findResult = await movieCollection.find().toArray();
-    let movieDBIds = [];
-    let amcIds = [];
-
-    for (let movie of findResult){
-        movieDBIds.push(movie.amcId)
-    }
-    for (let movie of moviesList){
-        amcIds.push(movie.amcId)
-    }
-
-    const setA = new Set(movieDBIds);
-    const setB = new Set(amcIds);
-    const moviesToAdd = difference(setB, setA);
-
-    for (let movie of moviesList){
-
-        if (moviesToAdd.has(movie.amcId)) {
-            const insertQuery = await movieCollection.insertOne(movie);
+                moviesList.push(InsertedMovie);
+            }
         }
     }
-}
 
-function difference(setA, setB) {
-    let _difference = new Set(setA)
-    for (let elem of setB) {
-        _difference.delete(elem)
+    for (let movie of moviesList){
+        movie.movieName = movie.movieName.replace(/'/g, '/quote');
     }
-    return _difference
-}
 
+    if (latestMovies) {
+        const latestReleases = moviesList.sort(function(a,b){
+            return new Date(b.releaseDate) - new Date(a.releaseDate);
+        }).slice(0, 5);
+        return [moviesList, latestReleases];
+    }
+
+    return moviesList;
+}
 
 module.exports = {
     getAllMovies,
     getMovieById,
     getMovieNameById,
-    getNowPlayingMovies,
     getMovieBySlug,
-    getUpcomingMovies
+    getMovies
 }

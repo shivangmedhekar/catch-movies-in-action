@@ -13,6 +13,7 @@
     if(movieInfo.runTime)
         $('#movie-runtime').html(`${movieInfo.runTime} MINS`);
 
+    if (movieInfo.poster.includes('null')) movieInfo.poster = '/public/assets/noimg.jpg';
     $('#movie-poster').attr("src", `${movieInfo.poster}`);
     $('#movie-backdrop').attr("src", `https://image.tmdb.org/t/p/original/${movieInfo.backdrop}`);
     const todaysDate = new Date();

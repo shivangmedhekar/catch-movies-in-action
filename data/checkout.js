@@ -20,7 +20,7 @@ async function checkSeatsAvailability(showtimeId, seats){
     const showtimesCollection = await showtimes();
 
     let showtimeObj = await showtimesCollection.findOne({showtimeId: showtimeId});
-    console.log(showtimeObj);
+
     for (let seat of seats){
         if (showtimeObj.availability[seat]) return false;
     }
@@ -32,7 +32,7 @@ async function updateMovieAvailability(showtimeId, seats){
     const showtimesCollection = await showtimes();
 
     let showtimeObj = await showtimesCollection.findOne({showtimeId: showtimeId});
-    console.log(showtimeObj);
+
     for (let seat of seats){
         showtimeObj.availability[seat] = 1
     }

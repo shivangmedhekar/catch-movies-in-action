@@ -9,8 +9,25 @@
 
 main {
     margin-top: 100px;
+
 }
 
 .alert {
     display: none;
+}
+
+/* Making the Footer Stick to the Bottom of the Page */
+
+html {
+    height: 100%;
+}
+
+body{
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    margin-top: auto;
 }

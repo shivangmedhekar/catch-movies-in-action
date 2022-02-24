@@ -1,13 +1,9 @@
 
 <head>
-
     <title>CMA: Home</title>
 
-    <!--Owl Carousel 2-->
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">-->
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">-->
-    <link rel="stylesheet" href="../../../public/css/pages/home/home.css">
-    <link rel="stylesheet" href="public/css/lightslider/lightslider.css">
+    <link rel="stylesheet" href="/public/css/pages/home/home.css">
+    <link rel="stylesheet" href="/public/css/lightslider/lightslider.css">
 </head>
 
 
@@ -19,8 +15,8 @@
 
 
 <section id="now-playing">
-    <div class="now-playing-heading-div">
-        <h2 class="now-playing-heading">Now Playing</h2>
+    <div class="category-heading-div">
+        <h2 class="category-heading">Now Playing</h2>
         <a href="/nowplaying"><p>VIEW ALL </p></a>
     </div>
 
@@ -29,23 +25,21 @@
 
 <section id="upcoming-movies">
 
-    <div class="upcoming-movies-heading-div">
-        <h2 class="upcoming-movies-heading">Upcoming Movies</h2>
+    <div class="category-heading-div">
+        <h2 class="category-heading">Upcoming Movies</h2>
         <a href="/upcoming"><p>VIEW ALL </p></a>
     </div>
-
 
     <ul id="upcoming-movies-list" class="cs-hidden"></ul>
 </section>
 
-<script src="public/js/lightslider/lightslider.js"></script>
-<script src="public/js/owlcarousel/owl.carousel.min.js"></script>
-<script src="public/js/owlcarousel-config.js"></script>
+<script src="/public/js/lightslider/lightslider.js"></script>
+<script src="/public/js/owlcarousel/owl.carousel.min.js"></script>
+<script src="/public/js/owlcarousel/owlcarousel-config.js"></script>
 
 <script>
-
     const latestReleases = JSON.parse('{{{ latestReleases }}}');
-    const nowPlaying = JSON.parse('{{{ nowPlayingMovies }}}');
+    const nowPlayingMovies = JSON.parse('{{{ nowPlayingMovies }}}');
     const upcomingMovies = JSON.parse('{{{ upcomingMovies }}}');
 </script>
-<script rel="script" src="../../../public/js/pages/home/home.js"></script>
+<script rel="script" src="/public/js/pages/home/home.js"></script>

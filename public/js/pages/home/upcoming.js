@@ -1,7 +1,7 @@
 (function ($) {
     for (let movie of upcomingMovies){
 
-        if (movie.poster.includes('null')) movie.poster = 'public/assets/noimg.jpg';
+        if (movie.poster.includes('null')) movie.poster = '/public/assets/noimg.jpg';
 
         $('.now-playing-list').append(
             `<a href="/movie/${movie.slug}">
@@ -10,9 +10,9 @@
                             <img src="${movie.poster}">
                         </div>
         
-                        <div class="now-playing-box-text">
+                        <div class="movie-box-text">
                             <h6>${movie.movieName.replace('/qoute', "'")}</h6>
-                            <p>${(new Date(movie.releaseDate)).toLocaleDateString() }</p>
+                            <p>${(new Date(movie.releaseDate)).toLocaleDateString()}</p>
                         </div>
                     </div>
             </a>`)

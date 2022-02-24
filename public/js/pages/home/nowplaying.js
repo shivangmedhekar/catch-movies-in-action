@@ -1,7 +1,7 @@
 (function ($) {
 
-    console.log(nowPlaying)
-    for (let movie of nowPlaying){
+    console.log(nowPlayingMovies)
+    for (let movie of nowPlayingMovies){
         let genre
         if (movie.genre) genre = `${movie.genre[0]}${movie.genre.substring(1, movie.genre.length).toLowerCase()}`;
         else genre = "NA";
@@ -15,7 +15,7 @@
                             <img src="${movie.poster}">
                         </div>
         
-                        <div class="now-playing-box-text">
+                        <div class="movie-box-text">
                             <h6>${movie.movieName.replace('/qoute', "'")}</h6>
                             <p> ${genre} | ${movie.runTime} min | ${movie.mpaaRating}</p>
                         </div>

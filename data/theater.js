@@ -2,12 +2,14 @@ const mongoCollections = require('./../config/mongoCollections');
 const axios = require("axios");
 const theaters = mongoCollections.theaters;
 
+const X_AMC_VENDOR_KEY = process.env.X_AMC_VENDOR_KEY;
+
 async function getAllTheaters() {
 
     const url = `https://api.amctheatres.com/v2/theatres?state=new-york&city=new-york`;
     const { data } = await axios.get(url, {
         headers: {
-            'X-AMC-Vendor-Key': '3E9F23B5-8BE9-4DD1-854D-204A9F3138FB'
+            'X-AMC-Vendor-Key': X_AMC_VENDOR_KEY
         }
     });
     const theatersData = data._embedded.theatres;
@@ -24,11 +26,11 @@ async function getAllTheaters() {
 }
 
 async function getTheaterById(theaterId) {
-    console.log(theaterId)
+
     const url = `https://api.amctheatres.com/v2/theatres/${theaterId}`;
     const { data } = await axios.get(url, {
         headers: {
-            'X-AMC-Vendor-Key': '3E9F23B5-8BE9-4DD1-854D-204A9F3138FB'
+            'X-AMC-Vendor-Key': X_AMC_VENDOR_KEY
         }
     });
     const theater = {

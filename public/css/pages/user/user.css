@@ -1,3 +1,10 @@
+.event-headings{
+    display: flex;
+}
+.collapse-btn{
+    margin-left: 20px;
+}
+
 .movie-poster-box{
     display: flex;
     flex-direction: column;

@@ -5,20 +5,28 @@
 
 <div class="container">
     <h1 id="user-greet" class="display-1">Hi {{user.firstName}} !</h1>
+    <hr class="my-4">
 </div>
 
 
 <div class="container" id="order-history">
     <h2>Orders</h2>
 
-    <h3>Upcoming Events</h3>
-    <div id="upcoming-orders">
-        <ul id="upcoming-orders-list" class="cs-hidden"></ul>
+    <div class="event-headings">
+        <h3>Upcoming Events</h3>
+        <button class="btn btn-primary collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#upcoming-orders" aria-expanded="false" aria-controls="upcoming-orders">View</button>
+    </div>
+    <div id="upcoming-orders" class="collapse">
+        <ul id="upcoming-orders-list"></ul>
     </div>
 
-    <h3>Past Events</h3>
-    <div id="past-orders">
-        <ul id="post-orders-list" class="cs-hidden"></ul>
+    <div class="event-headings">
+        <h3>Past Events</h3>
+        <button class="btn btn-primary collapse-btn" type="button" data-bs-toggle="collapse" data-bs-target="#past-orders" aria-expanded="false" aria-controls="past-orderss">View</button>
+    </div>
+
+    <div id="past-orders" class="collapse">
+        <ul id="post-orders-list"></ul>
     </div>
 </div>
 

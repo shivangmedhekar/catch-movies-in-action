@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const usersData = require('./../data/users');
+const xss = require('xss');
 
 router.post('/signup', async (req, res) => {
 
@@ -9,8 +10,9 @@ router.post('/signup', async (req, res) => {
 
         if (Object.keys(req.body).length < 7) throw 'Error: Less data passed then required';
 
-        const [firstName, lastName, email, phoneNo, dob, password, confirmPassword] = [req.body.firstName,
-        req.body.lastName, req.body.email, req.body.phoneNo, req.body.dob, req.body.password, req.body.confirmPassword];
+        const [firstName, lastName, email, phoneNo, dob, password, confirmPassword] = [xss(req.body.firstName),
+        xss(req.body.lastName), xss(req.body.email), xss(req.body.phoneNo), xss(req.body.dob),
+            xss(req.body.password), xss(req.body.confirmPassword)];
 
         /*------------ Error Handling Start ------------*/
         if (!firstName || !lastName || !email || !phoneNo || !dob || !password || !confirmPassword) throw 'Error: All fields are required';
@@ -78,7 +80,7 @@ router.post('/login', async (req, res) => {
 
         if (Object.keys(req.body).length < 2) throw 'Error: Less data passed then required';
 
-        const [email, password] = [req.body.email, req.body.password];
+        const [email, password] = [xss(req.body.email), xss(req.body.password)];
 
         /*------------ Error Handling Start ------------*/
 
@@ -97,10 +99,10 @@ router.post('/login', async (req, res) => {
 
         if (loginInfo.authenticated) {
             req.session.user = {
-                userId: loginInfo.user._id,
-                email: loginInfo.user.email,
-                firstName: loginInfo.user.firstName,
-                lastName: loginInfo.user.lastName
+                userId: xss(loginInfo.user._id),
+                email: xss(loginInfo.user.email),
+                firstName: xss(loginInfo.user.firstName),
+                lastName: xss(loginInfo.user.lastName)
             }
             res.status(200).json(loginInfo.user);
         }

@@ -5,7 +5,7 @@ const settings = {
         "serverUrl": process.env.ATLAS_SERVER_URL,
         "database": process.env.ATLAS_DATABASE
     }
-}
+};
 
 const mongoConfig = settings.mongoConfig;
 

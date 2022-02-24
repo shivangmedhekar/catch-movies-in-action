@@ -10,7 +10,7 @@ router.get('/:movieId', async (req, res) => {
 
     const showsStringify = JSON.stringify(shows);
 
-    res.render('pages/showtimes/showtimes', {shows: showsStringify});
+    res.render('pages/theater/showtimes', {shows: showsStringify});
 });
 
 router.post('/getshows/:theaterId/:slug/:searchDate', async (req, res) => {

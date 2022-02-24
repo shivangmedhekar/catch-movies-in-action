@@ -44,7 +44,7 @@ router.post('/:movieId', async (req, res) => {
 
 router.get('/:slug/showtimes', async (req, res) => {
 
-    res.render('pages/showtimes/showtimes', { slug: req.params.slug });
+    res.render('pages/theater/showtimes', { slug: req.params.slug });
 });
 
 router.get('/:slug/showtimes/:showtimeId', async (req, res) => {
@@ -58,11 +58,6 @@ router.get('/getMovieBySlug/:slug', async (req, res) => {
     res.json({movie: movie});
 });
 
-// router.get('/getTopMovies/ajaxCall', async (req, res) => {
-//
-//     const movies = await movieData.getTopMovies();
-//     res.json({movies: movies});
-// });
 
 router.get('/getMovieBySlug/ajaxCall', async (req, res) => {
 

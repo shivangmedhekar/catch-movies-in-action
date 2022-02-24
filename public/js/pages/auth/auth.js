@@ -1,9 +1,14 @@
 (function($) {
 
-    navbarUpdate();
-    // const todaysDate = new Date();
+    main();
+    const todaysDate = new Date();
+    document.getElementById("dob").max = calenderFormatDate(todaysDate);
 
-    // document.getElementById("dob").max = calenderFormatDate(todaysDate);
+    async function main(){
+        await navbarUpdate();
+    }
+
+
     $('#modalCloseBtn').on("click", function (e){
         $('#login-form')[0].reset();
         $('#signup-form')[0].reset();
@@ -25,7 +30,8 @@
 
         return `${year}-${month}-${day}`;
     }
-    $("#login-form").submit(function (event) {
+
+    $("#login-form").submit(async function (event) {
         $('#signup-success').hide();
         event.preventDefault();
 
@@ -33,20 +39,25 @@
             email: $("#login-email").val(),
             password: $("#login-password").val(),
         };
+
+        /*------------ Client Side Validation Start -------------*/
+
         let validForm = true;
-        if (formData.email.length === 0 || !ValidateEmail(formData.email)) {
+        if (formData.email.trim().length === 0 || !ValidateEmail(formData.email)) {
             validForm = false;
             $("#login-email").addClass('is-invalid');
         }
         else $("#login-email").removeClass('is-invalid');
 
-        if (formData.password.length === 0) {
+        if (formData.password.trim().length === 0) {
             validForm = false;
             $("#login-password").addClass('is-invalid');
         }
         else $("#login-password").removeClass('is-invalid');
 
-        if (validForm) authForm(formData, '/auth/login/', 'login');
+        /*------------ Client Side Validation End -------------*/
+
+        if (validForm) await authForm(formData, '/auth/login/', 'login');
     });
 
     function ValidateEmail(email)
@@ -55,7 +66,7 @@
         return false;
     }
 
-    $("#signup-form").submit(function (event) {
+    $("#signup-form").submit(async function (event) {
 
         event.preventDefault();
         var formData = {
@@ -68,8 +79,33 @@
             confirmPassword: $("#signup-confirm-password").val(),
         };
 
-        authForm(formData, '/auth/signup/', 'signup');
-        console.log(formData);
+        /*------------ Client Side Validation Start -------------*/
+        let validForm = true;
+
+        if (formData.firstName.trim().length === 0) { validForm = false; $("#first-name").addClass('is-invalid');}
+        else $("#first-name").removeClass('is-invalid');
+
+        if (formData.lastName.trim().length === 0) { validForm = false; $("#last-name").addClass('is-invalid');}
+        else $("#last-name").removeClass('is-invalid');
+
+        if (formData.email.trim().length === 0 || !ValidateEmail(formData.email) ) { validForm = false; $("#signup-email").addClass('is-invalid');}
+        else $("#signup-email").removeClass('is-invalid');
+
+        if (formData.phoneNo.trim().length === 0 || !formData.phoneNo.match(/^\d{10}$/)) { validForm = false; $("#phone-no").addClass('is-invalid');}
+        else $("#phone-no").removeClass('is-invalid');
+
+        if (formData.dob.trim().length === 0) { validForm = false; $("#dob").addClass('is-invalid');}
+        else $("#dob").removeClass('is-invalid');
+
+        if (formData.password.trim().length === 0) { validForm = false;$("#signup-password").addClass('is-invalid');}
+        else $("#signup-password").removeClass('is-invalid');
+
+        if (formData.confirmPassword.trim().length === 0) { validForm = false;$("#signup-confirm-password").addClass('is-invalid');}
+        else $("#signup-confirm-password").removeClass('is-invalid');
+
+        /*------------ Client Side Validation End -------------*/
+
+        if (validForm) await authForm(formData, '/auth/signup/', 'signup');
     });
 
     async function navbarUpdate(){
@@ -121,7 +157,7 @@
                 data: formData,
 
                 success: async function (response) {
-                    console.log(response);
+
                     sessionStorage.setItem('authenticated','true');
                     sessionStorage.setItem('firstName', response.firstName);
                     await navbarUpdate();
@@ -135,9 +171,7 @@
 
                     if (window.location.href.includes('profile')) window.location.replace('/');
 
-                    if (type === 'login') {
-                        $('#login-error').html("");
-                        $('#login-error').hide();
+                    if (type === 'login') { $('#login-error').html(""); $('#login-error').hide();
                     }
                     else $('#signup-error').html("");
 
@@ -146,29 +180,17 @@
                 },
             });
         }catch (e){
-            console.log(e)
-            if (type === 'login') {
-                $('#login-error').html(e.responseJSON.error);
-                $('#login-error').show();
-            }
-            else {
-                $('#signup-error').html(e.responseJSON.error);
-                $('#signup-error').show();
-            }
+
+            if (type === 'login') { $('#login-error').html(e.responseJSON.error); $('#login-error').show();}
+            else { $('#signup-error').html(e.responseJSON.error); $('#signup-error').show(); }
         }
 
-        if (type === 'login') {
-            $('#login-button').html('LOGIN');
-            $('#login-button').attr("disabled", false);
-        }
-        else {
-            $('#signup-button').html('SIGN UP');
-            $('#signup-button').attr("disabled", false);
-        }
+        if (type === 'login') { $('#login-button').html('LOGIN');$('#login-button').attr("disabled", false); }
+        else { $('#signup-button').html('SIGN UP'); $('#signup-button').attr("disabled", false); }
 
     }
 
-    $("#nav-logout").on("click", function (e){ logout();});
+    $("#nav-logout").on("click", async function (e){ await logout();});
 
     async function logout() {
         try{
@@ -176,9 +198,9 @@
                 method: 'GET',
                 url: '/auth/logout',
 
-                success: function (response) {
+                success: async function (response) {
                     sessionStorage.clear();
-                    navbarUpdate();
+                    await navbarUpdate();
                     if (window.location.href.includes('profile')) window.location.replace('/');
                 },
             });

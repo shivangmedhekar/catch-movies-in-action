@@ -15,8 +15,6 @@ async function checkout(orderSummary, user){
     return orderSummary;
 }
 
-
-
 async function checkSeatsAvailability(showtimeId, seats){
 
     const showtimesCollection = await showtimes();

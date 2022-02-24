@@ -3,7 +3,7 @@ const axios = require('axios');
 const mongoCollections = require('./../config/mongoCollections');
 const movies = mongoCollections.movies;
 
-const X_AMC_VENDOR_KEY = process.env.X_AMC_VENDOR_KEY
+const X_AMC_VENDOR_KEY = process.env.X_AMC_VENDOR_KEY;
 const tmdbAPIkey = process.env.TMDB_API_KEY;
 const omdbAPIkey = process.env.OMDB_API_KEY;
 const imdbId = require('imdb-id');

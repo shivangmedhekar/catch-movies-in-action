@@ -21,7 +21,7 @@
                                         <h3 id="theater-name" class="h5">${order.theaterName}</h3>
                                         <h3 id="format" class="h5">${order.format}</h3>
                                         <h3 id="showtime" class="h5">${(new Date(order.showtime)).toDateString()}</h3>
-                                        <h3 id="showtime" class="h5">${(new Date(order.showtime)).toLocaleTimeString()}</h3>
+                                        <h3 id="showtime" class="h5">${(new Date(order.showtime)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</h3>
                                         <h3 id="seats" class="h5">Seats: ${order.seats}</h3>
                                         <h3 id="total-cost" class="h5">$${order.totalcost}</h3>
                                     </div>`;

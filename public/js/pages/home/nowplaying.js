@@ -6,7 +6,7 @@
         if (movie.genre) genre = `${movie.genre[0]}${movie.genre.substring(1, movie.genre.length).toLowerCase()}`;
         else genre = "NA";
 
-        if (movie.poster.includes('null')) movie.poster = 'public/assets/noimg.jpg';
+        if (movie.poster.includes('null')) movie.poster = '/public/assets/noimg.jpg';
 
         $('.now-playing-list').append(
             `<a href="/movie/${movie.slug}">

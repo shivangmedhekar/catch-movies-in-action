@@ -21,6 +21,8 @@
                 url: '/movie/' + orderSummary.movieId
             });
 
+            if (result.poster.includes('null')) result.poster = '/public/assets/noimg.jpg';
+            
             $('#movie-poster').attr("src", `${result.poster}`);
         }catch (e) {
             console.log(e)

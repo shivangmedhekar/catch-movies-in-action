@@ -1,6 +1,7 @@
 const mongoCollections = require('./../config/mongoCollections');
 const axios = require("axios");
 const showtimesCollection = mongoCollections.showtimes;
+const X_AMC_VENDOR_KEY = process.env.X_AMC_VENDOR_KEY;
 
 async function clearOldShowtime(){
     const showtimes = await showtimesCollection();
@@ -17,20 +18,11 @@ async function clearOldShowtime(){
 
 async function getShowsOfMovie(theaterId, slug, searchDate){
 
-    // const showtimes = await showtimesCollection();
-    //
-    // const findResult = await showtimes.findOne( {movieId: movieId});
-    //
-    //
-    // if (findResult === null) throw "Error: movie doesnt exists in showtimes collection";
-    //
-    // return findResult
-
     slug = slug.substring(0, slug.length - 6)
     const url = `https://api.amctheatres.com/v2/theatres/${theaterId}/showtimes/${searchDate}/?movie=${slug}`;
     const { data } = await axios.get(url, {
         headers: {
-            'X-AMC-Vendor-Key': '3E9F23B5-8BE9-4DD1-854D-204A9F3138FB'
+            'X-AMC-Vendor-Key': X_AMC_VENDOR_KEY
         }
     });
     let showtimes = [];
@@ -58,7 +50,7 @@ async function getShowsDetails(showtimeId){
     const url = `https://api.amctheatres.com/v2/showtimes/${showtimeId}`;
     const { data } = await axios.get(url, {
         headers: {
-            'X-AMC-Vendor-Key': '3E9F23B5-8BE9-4DD1-854D-204A9F3138FB'
+            'X-AMC-Vendor-Key': X_AMC_VENDOR_KEY
         }
     });
 

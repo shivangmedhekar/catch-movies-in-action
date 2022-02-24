@@ -7,9 +7,11 @@ const showtimeData = require('./../data/showtimes');
 
 router.get('/', async (req, res) => {
 
-    // Upcoming Movies and Top Rated Movies
+    // Gets Latest Releases, Now Playing and Upcoming Movies
     try {
-        await showtimeData.clearOldShowtime();
+
+        await showtimeData.clearOldShowtime(); // Deletes old showtime data from database
+
         const [nowPlayingMovies, latestReleases] = await movieData.getMovies(15, 'now-playing', true);
         const upcomingMovies = await movieData.getMovies(15, 'coming-soon', false);
 
@@ -25,7 +27,7 @@ router.get('/', async (req, res) => {
 
 router.get('/nowplaying', async (req, res) => {
 
-    // Upcoming Movies and Top Rated Movies
+    // Gets all Now Playing Movies
     try {
         const nowPlayingMovies = await movieData.getMovies(30, 'now-playing', false);
 
@@ -40,7 +42,7 @@ router.get('/nowplaying', async (req, res) => {
 
 router.get('/upcoming', async (req, res) => {
 
-    // Upcoming Movies and Top Rated Movies
+    // Gets all Upcoming Movies
     try {
         const upcomingMovies = await movieData.getMovies(30, 'coming-soon', false);
 
@@ -53,69 +55,4 @@ router.get('/upcoming', async (req, res) => {
     }
 });
 
-router.post('/signup', async (req, res) => {
-
-    try {
-        const { firstName, lastName, email, phoneNo, dob, password, confirmPassword } = req.body;
-
-
-        const signUpInfo = await usersData.createUser( firstName, lastName, email, phoneNo, dob, password, confirmPassword );
-
-        if (signUpInfo.userInserted) res.status(200).json(signUpInfo.user);
-
-    }catch (e) {
-        res.status(400).json({'error': e});
-    }
-
-});
-
-router.get('/logout', async (req, res) => {
-
-    if (req.session.user){
-        req.session.destroy();
-        res.status(200).json({'Logged Out': "Successfully"});
-    }
-    else {
-        res.status(204).json();
-    }
-
-});
-
-// router.get('/profile', async (req, res) => {
-//
-//     try{
-//         if (! req.session.user) throw 'Error: You should be logged in to acess this page';
-//
-//         res.render('pages/users/user', {user: req.session.user})
-//     }catch (e){
-//
-//     }
-// });
-
-router.get('/auth-status', async (req, res) => {
-
-    if(req.session.user) return res.json({ 'authStatus': true});
-    else return res.json({ 'authStatus': false});
-});
-
-router.post('/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-
-        const loginInfo = await usersData.checkUser(email, password);
-
-        if (loginInfo.authenticated) {
-            req.session.user = {
-                userId: loginInfo.user._id,
-                email: loginInfo.user.email,
-                firstName: loginInfo.user.firstName,
-                lastName: loginInfo.user.lastName
-            }
-
-            res.status(200).json(loginInfo.user);
-        }
-    }catch (e) {
-        res.status(400).json({'error': e});
-    }
-});
 module.exports = router;

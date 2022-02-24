@@ -40,8 +40,7 @@
             method: 'GET',
             url: '/movie/getMovieBySlug/' + slug
         });
-        console.log(result)
-        // movieReleaseDate = new Date(result.releaseDate);
+
         $("#movie-name").html(result.movie.movieName.replace('/quote', "'"));
         return result.movie
     }
@@ -56,14 +55,14 @@
 
 
     function searchByDate() {
-        $('#searchBtn').on("click", function (){
+        $('#searchBtn').on("click", async function (){
             const calenderDate = ($('#calender').val()).split('-');
             const calenderFormatedDate = `${calenderDate[1]}-${calenderDate[2]}-${calenderDate[0]}`;
 
             const searchDate = dateFormatingForSearch(new Date(calenderFormatedDate));
 
             $('#show-list').empty()
-            getShows(searchDate);
+            await getShows(searchDate);
         })
     }
 
@@ -80,6 +79,7 @@
         let theaters = await getTheaters();
         $('.loader-showtimes').show();
         $('#show-list').hide();
+        let counter = 0;
         for (let theater of theaters){
             let theaterDiv = `<div id="${theater.slug}" class="theater">`
             let theaterName = `<h2 class="theater-name display-5">${theater.name}</h2>`
@@ -92,7 +92,8 @@
             let conditionalDiv;
             if (result['error']) {
                 const errorMsg = 'Sorry, No shows available for this movie';
-                conditionalDiv = ''
+                conditionalDiv = '';
+                counter += 1;
             }
             else {
                 let digital = [];
@@ -144,6 +145,11 @@
             let divToAppend = theaterDiv + conditionalDiv + '</div>'
             $('#show-list').append(divToAppend);
         }
+
+        if (counter === 9) $('#show-list').html(`
+                <div class="d-flex justify-content-center alert alert-warning">
+                    <h1><span class="fas fa-exclamation-triangle"></span> No Shows in NYC</h1>
+                </div>`)
         $('.loader-showtimes').hide();
         $('#show-list').show();
     }

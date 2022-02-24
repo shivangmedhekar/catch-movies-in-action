@@ -13,7 +13,6 @@ async function clearOldShowtime(){
             const deleteQuery = showtimes.deleteOne({_id: show._id});
         }
     }
-
 }
 
 async function getShowsOfMovie(theaterId, slug, searchDate){

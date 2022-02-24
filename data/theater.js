@@ -22,6 +22,7 @@ async function getAllTheaters() {
             slug: theater.slug
         })
     }
+
     return theaters
 }
 

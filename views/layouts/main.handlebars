@@ -10,10 +10,11 @@
 
     <!-- jQuery CDN 3.6.0 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
-    <!-- Font Awesome CDN -->
+
+    <!-- Font Awesome v5.15.4 CDN -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
+    <!-- CSS Styling -->
     <link rel="stylesheet" href="/public/css/pages/main.css">
 </head>
 
@@ -25,26 +26,32 @@
         <div class="modal-content">
             <div class="modal-header">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+                    <!-- Returning User/Login Pill -->
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-login" type="button" role="tab" aria-controls="pills-login" aria-selected="true">
                             RETURNING USER
                         </button>
                     </li>
+
+                    <!-- New User/Sign Up Pill -->
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-signup-tab" data-bs-toggle="pill" data-bs-target="#pills-signup" type="button" role="tab" aria-controls="pills-signup" aria-selected="false">
                             NEW USER
                         </button>
                     </li>
+
                 </ul>
             </div>
+
             <div class="modal-body">
-
-
                 <div class="tab-content" id="pills-tabContent">
 
                     <!-- Login -->
                     <div class="alert alert-success" id="signup-success"></div>
                     <div class="tab-pane fade show active login" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
+
+                        <!-- Login Form -->
                         <form id="login-form" class="needs-validation" novalidate>
                             <div class="mb-3">
                                 <label for="login-email" class="form-label" >Email address</label>
@@ -65,10 +72,13 @@
                             </div>
                             <button type="submit" id="login-button" class="btn btn-primary auth-btn">LOGIN</button>
                         </form>
+                        <!-- Login Form -->
                     </div>
 
                     <!-- Sign Up -->
                     <div class="tab-pane fade" id="pills-signup" role="tabpanel" aria-labelledby="pills-signup-tab">
+
+                        <!-- Sign Up Form -->
                         <form id="signup-form" class="needs-validation" novalidate>
                             <div class="mb-3">
                                 <label for="first-name" class="form-label">First Name</label>
@@ -123,13 +133,10 @@
                             </div>
 
                             <div class="alert alert-danger" id="signup-error"></div>
-
-
                             <button type="submit" id="signup-button" class="btn btn-primary auth-btn">SIGN UP</button>
-
                         </form>
+                        <!-- Sign Up Form -->
                     </div>
-
                 </div>
             </div>
 
@@ -176,12 +183,14 @@
         </div>
     </nav>
 
+    <!-- Auth Checking -->
     <script src="/public/js/pages/auth/auth.js"></script>
 
     <main>
         {{{body}}}
     </main>
 
+<!-- Footer -->
 <footer class="footer mt-auto py-5 bg-light ">
     <div class="container">
         <p class="float-end mb-1">
@@ -191,5 +200,4 @@
         <p class="mb-0">Developed By <a href="https://github.com/shivangmedhekar">Shivang Medhekar</a>.</p>
     </div>
 </footer>
-
-
+<!-- Footer -->

@@ -5,8 +5,6 @@
         const movieDetails = await getMovieDetails();
         let movieReleaseDate = new Date(movieDetails.releaseDate);
 
-
-
         let calenderDate;
         if (movieReleaseDate - todaysDate < 0) calenderDate = todaysDate;
         else calenderDate = movieReleaseDate;
@@ -102,12 +100,9 @@
                 let prime = [];
 
                 for (let show of result) {
-                    if (show.format.length == 0)
-                        digital.push(show);
-                    else if (show.format.includes("IMAX"))
-                        imax.push(show)
-                    else if (show.format.includes('Dolby'))
-                        dolby.push(show)
+                    if (show.format.length === 0) digital.push(show);
+                    else if (show.format.includes("IMAX")) imax.push(show);
+                    else if (show.format.includes('Dolby')) dolby.push(show);
                     else prime.push(show)
                 }
                 const showsByFormat = [digital, imax, dolby, prime];
@@ -149,7 +144,8 @@
         if (counter === 9) $('#show-list').html(`
                 <div class="d-flex justify-content-center alert alert-warning">
                     <h1><span class="fas fa-exclamation-triangle"></span> No Shows in NYC</h1>
-                </div>`)
+                </div>`
+        );
         $('.loader-showtimes').hide();
         $('#show-list').show();
     }
@@ -163,9 +159,5 @@
 
         $("#show-list").append('<h2>' + result.theaterName +'</h2>');
     }
-
-
-
-
 
 })(window.jQuery);

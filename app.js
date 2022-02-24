@@ -33,6 +33,6 @@ app.engine('handlebars', engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 configRoutes(app);
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('Server: http://localhost:3000');
 });

@@ -1,8 +1,6 @@
 (function($) {
     console.log(orderHistory)
 
-    let upcomingCounter, pastCounter = [1, 1];
-    pastCounter = 1
     async function main(){
         const today = new Date();
 

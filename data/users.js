@@ -20,6 +20,14 @@ async function createUser(firstName, lastName, email, phoneNo, dob, password, co
     if (!password.trim().length) throw 'Error: password empty';
     if (!confirmPassword.trim().length) throw 'Error: confirm password empty';
 
+    if (typeof firstName !== 'string') throw 'Error: firstName should be of type String';
+    if (typeof lastName !== 'string') throw 'Error: lastName should be of type String';
+    if (typeof email !== 'string') throw 'Error: email should be of type String';
+    if (typeof phoneNo !== 'string') throw 'Error: phoneNo should be of type String';
+    if (typeof dob !== 'string') throw 'Error: dob should be of type String';
+    if (typeof password !== 'string') throw 'Error: password should be of type String';
+    if (typeof confirmPassword !== 'string') throw 'Error: confirmPassword should be of type String';
+
     if(!(firstName.match(/^[a-zA-Z]+$/))) throw 'Error: Invalid first name, only alphabets allowed';
     if(!(lastName.match(/^[a-zA-Z]+$/))) throw 'Error: Invalid last name, only alphabets allowed';
     if (!ValidateEmail(email)) throw 'Error: Invalid email';
@@ -70,6 +78,9 @@ async function checkUser(email, password){
     if (!email.trim().length) throw 'Error: email empty';
     if (!password.trim().length) throw 'Error: password empty';
 
+    if (typeof email !== 'string') throw 'Error: email should be of type String';
+    if (typeof password !== 'string') throw 'Error: password should be of type String';
+
     if (!ValidateEmail(email)) throw 'Error: Invalid email';
 
     /*------------ Error Handling End -------------*/
@@ -106,5 +117,5 @@ function ValidateEmail(email) {
 }
 
 module.exports = {
-    createUser, checkUser, getOrderHistory
+    createUser, checkUser, getOrderHistory, ValidateEmail
 }

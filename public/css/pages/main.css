@@ -3,9 +3,14 @@
     width: 20px;
 }
 
-#login-button{
+.auth-btn {
     width: 100%;
 }
-#signup-btn{
-    width: 100%;
+
+main {
+    margin-top: 100px;
+}
+
+.alert {
+    display: none;
 }

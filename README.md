@@ -7,7 +7,9 @@ The user is also provided with a page where he can view his order history and hi
 In this online movie ticket booking system, user login displays the users past movie tickets. 
 The purpose of this application is to provide movie lovers with enough information and a one stop shop to book and read about a movie
 
-
+#### Deployed on Heroku, click on the badge to view the app
+[<img src="https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white"/>
+](https://cma-catch-movies-in-action.herokuapp.com/)
 
 ## Features of Web App
 

@@ -9,7 +9,7 @@ The purpose of this application is to provide movie lovers with enough informati
 
 #### Deployed on Heroku, click on the badge to view the app
 [<img src="https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white"/>
-](https://cma-catch-movies-in-action.herokuapp.com/){target="_blank"}
+](https://cma-catch-movies-in-action.herokuapp.com/?target="_blank"){target="_blank"}
 
 ## Features of Web App
 

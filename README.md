@@ -1,5 +1,5 @@
 # CMA - Catch Movies In Action
-[<img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"/>](https://nodejs.org/en/) <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge"/> <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white"/>
+[<img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"/>](https://nodejs.org/en/) <img [src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge"/>](https://expressjs.com/) [<img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white"/>](https://www.mongodb.com/)
 
 The Following Web App is an online movie ticket booking system that acts as an interface for people to search and book tickets.
 Users can see movie descriptions and then choose to book the movie at their desired movie outlet.
@@ -9,7 +9,7 @@ The purpose of this application is to provide movie lovers with enough informati
 
 #### Deployed on Heroku, click on the badge to view the app
 [<img src="https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white"/>
-](https://cma-catch-movies-in-action.herokuapp.com/){:target="\_blank"}
+](https://cma-catch-movies-in-action.herokuapp.com/)
 ## Features of Web App
 
 

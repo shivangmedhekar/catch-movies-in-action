@@ -12,7 +12,7 @@
     "url": "git+https://github.com/shivangmedhekar/CMA.git"
   },
   "engines": {
-    "node": "14.x"
+    "node": "18.x"
   },
   "author": "Shivang Medhekar",
   "license": "MIT",

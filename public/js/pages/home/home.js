@@ -13,6 +13,7 @@
     }
 
     for (let movie of nowPlayingMovies){
+        
         let subString = [];
         if (movie.genre) subString.push(movie.genre);
         if (movie.runTime) subString.push(`${movie.runTime} mins`);

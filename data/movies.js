@@ -118,9 +118,11 @@ async function getMovies(pageSize, view, latestMovies){
     if (data.errors) throw "Error: AMC Server not responding";
     const amcNowPlayingMovies = data._embedded.movies;
     /*------------ AMC Developers API ------------*/
+    
 
     const movieCollection = await movies();
     const moviesData = await movieCollection.find({}).project({_id:0}).toArray();
+    
 
     let moviesHashTableDb = {};
     for (let movie of moviesData){
@@ -147,6 +149,7 @@ async function getMovies(pageSize, view, latestMovies){
 
         else {
             try{
+
                 if (!movie.imdbId) movie.imdbId = await imdbId(movie.name);
 
                 const url = `https://api.themoviedb.org/3/find/${movie.imdbId}?api_key=${tmdbAPIkey}&external_source=imdb_id`;
@@ -157,7 +160,10 @@ async function getMovies(pageSize, view, latestMovies){
                     poster = `https://image.tmdb.org/t/p/original${data['movie_results'][0].poster_path}`;
                 }
 
-            }catch (e) { continue; }
+            }catch (e) { 
+                console.log(movie.name)
+                console.log(e); 
+            }
 
             if(!poster) poster = movie.media.posterDynamic;
             if (!backdrop) backdrop = movie.media.heroDesktopDynamic;
@@ -183,6 +189,7 @@ async function getMovies(pageSize, view, latestMovies){
             }
         }
     }
+    
 
     for (let movie of moviesList){
         movie.movieName = movie.movieName.replace(/'/g, '/quote');
@@ -194,7 +201,7 @@ async function getMovies(pageSize, view, latestMovies){
         }).slice(0, 5);
         return [moviesList, latestReleases];
     }
-
+    
     return moviesList;
 }
 

@@ -30,9 +30,9 @@ router.get('/nowplaying', async (req, res) => {
     // Gets all Now Playing Movies
     try {
         const nowPlayingMovies = await movieData.getMovies(30, 'now-playing', false);
-
         res.status(200).render('pages/home/nowplaying.handlebars',
             {nowPlayingMovies: JSON.stringify(nowPlayingMovies)})
+        
 
     }catch (e) {
         console.log(e)
